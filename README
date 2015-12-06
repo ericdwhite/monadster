@@ -1,8 +1,11 @@
 This is a version of the Monadster code in Haskell based on the blog posts: http://fsharpforfunandprofit.com/posts/monadster/
 
+git tags:
+  * instalment-1.0 corresponds to: http://fsharpforfunandprofit.com/posts/monadster/
+
 Any feedback is more than welcome!
 
-Trying it out:
+Trying it out: git tag (instalment-1.0)
 
   1. Launch ghci:
 
@@ -46,4 +49,5 @@ Trying it out:
         λ> liveRightArm
            LiveRightArm {lowerArm = LiveRightLowerArm "Tom" (VitalForce {units = 1}),
                          upperArm = LiveRightUpperArm "Jerry" (VitalForce {units = 1})}
+
 
