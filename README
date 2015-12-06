@@ -1,0 +1,49 @@
+This is a version of the Monadster code in Haskell based on the blog posts: http://fsharpforfunandprofit.com/posts/monadster/
+
+Any feedback is more than welcome!
+
+Trying it out:
+
+  1. Launch ghci:
+
+       $ cabal exec ghci src/Monadster/Main.hs
+
+  2. Start with some Vital Force
+
+        λ> -- Create some vital force 
+           let vf = VitalForce 10
+           VitalForce {units = 10}
+
+  2. Create body parts
+        λ> -- Left Leg
+           let deadLeftLeg = DeadLeftLeg "Boris"
+           let leftLegM = makeLiveLeftLegM deadLeftLeg
+           let (liveLeftLeg, remainingAfterLeftLeg) = runM leftLegM vf
+
+        λ> -- Left Arm
+           let deadLeftArm = DeadLeftBrokenArm "Victor"
+           let leftArmM = healBrokenArmM $ makeLiveLeftBrokenArm deadLeftArm
+           let (liveLeftArm, remainingAfterLeftArm) = runM leftArmM remainingAfterLeftLeg 
+
+        λ> -- Right Arm
+           let deadRightLowerArm = DeadRightLowerArm "Tom"
+           let lowerRightArmM = makeLiveRightLowerArm deadRightLowerArm
+
+           let deadRightUpperArm = DeadRightUpperArm "Jerry"
+           let upperRightArmM = makeLiveRightUpperArm deadRightUpperArm
+
+           let rightArmM = armSurgeryM lowerRightArmM upperRightArmM
+           let (liveRightArm, remainingAfterRightArm) = runM rightArmM remainingAfterLeftArm
+
+  3. Check the results
+
+        λ> liveLeftLeg
+           LiveLeftLeg "Boris" (VitalForce {units = 1})
+
+        λ> liveLeftArm
+           LiveLeftArm "Victor" (VitalForce {units = 1})
+
+        λ> liveRightArm
+           LiveRightArm {lowerArm = LiveRightLowerArm "Tom" (VitalForce {units = 1}),
+                         upperArm = LiveRightUpperArm "Jerry" (VitalForce {units = 1})}
+
