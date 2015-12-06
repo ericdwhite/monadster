@@ -12,19 +12,19 @@ Any feedback is more than welcome!
 
 ##Trying it out: git tag (instalment-1.0)
 
-1. Launch ghci:
+    1. Launch ghci:
 ```bash
        $ cabal exec ghci src/Monadster/Main.hs
 ```
 
-2. Start with some Vital Force
+    2. Start with some Vital Force
 ```haskell
         λ> -- Create some vital force 
            let vf = VitalForce 10
            VitalForce {units = 10}
 ```
 
-3. Create body parts
+    3. Create body parts
 ```haskell
         λ> -- Left Leg
            let deadLeftLeg = DeadLeftLeg "Boris"
@@ -46,7 +46,8 @@ Any feedback is more than welcome!
            let rightArmM = armSurgeryM lowerRightArmM upperRightArmM
            let (liveRightArm, remainingAfterRightArm) = runM rightArmM remainingAfterLeftArm
 ```
-4. Check the results
+
+    4. Check the results
 ```haskell
         λ> liveLeftLeg
            LiveLeftLeg "Boris" (VitalForce {units = 1})
