@@ -1,23 +1,29 @@
+#Dr Frankenfunctor and the Monadster, a Haskell implementation
+
 This is a version of the Monadster code in Haskell based on the blog posts: http://fsharpforfunandprofit.com/posts/monadster/
 
-git tags:
-  * instalment-1.0 corresponds to: http://fsharpforfunandprofit.com/posts/monadster/
+I created this as I was learning Haskell following functional programming articles on: http://fsharpforfunandprofit.com 
 
 Any feedback is more than welcome!
 
-Trying it out: git tag (instalment-1.0)
+##git tags:
+  * instalment-1.0 corresponds to: http://fsharpforfunandprofit.com/posts/monadster/
+
+
+##Trying it out: git tag (instalment-1.0)
 
   1. Launch ghci:
-
+```bash
        $ cabal exec ghci src/Monadster/Main.hs
-
+```
   2. Start with some Vital Force
-
+```haskell
         λ> -- Create some vital force 
            let vf = VitalForce 10
            VitalForce {units = 10}
-
+```
   2. Create body parts
+```haskell
         λ> -- Left Leg
            let deadLeftLeg = DeadLeftLeg "Boris"
            let leftLegM = makeLiveLeftLegM deadLeftLeg
@@ -37,9 +43,9 @@ Trying it out: git tag (instalment-1.0)
 
            let rightArmM = armSurgeryM lowerRightArmM upperRightArmM
            let (liveRightArm, remainingAfterRightArm) = runM rightArmM remainingAfterLeftArm
-
+```
   3. Check the results
-
+```haskell
         λ> liveLeftLeg
            LiveLeftLeg "Boris" (VitalForce {units = 1})
 
@@ -49,5 +55,5 @@ Trying it out: git tag (instalment-1.0)
         λ> liveRightArm
            LiveRightArm {lowerArm = LiveRightLowerArm "Tom" (VitalForce {units = 1}),
                          upperArm = LiveRightUpperArm "Jerry" (VitalForce {units = 1})}
-
+```
 
