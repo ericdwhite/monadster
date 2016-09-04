@@ -2,45 +2,10 @@
 :set prompt "\ESC[95mλ> \ESC[m"
 :set prompt2 "\ESC[95mλm> \ESC[m"
 :set -isrc/lib -isrc/test
-:def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""
 
--- Based ON
---   http://www.reddit.com/r/haskell/comments/24kpyu/watching_for_changes_and_rerunning_tests_in_ghci/
---
---   start GHCi as:
---     cabal exec ghci src/test/Test.hs
---     λ> :run
---
-import System.FSNotify
-import Data.String
-import Control.Concurrent.MVar
-import Control.Concurrent
-
+-- Running tests quickly
+-- λ> :test
 :{
-:def run const (withManager (\manager -> 
-               do putStrLn "\n \ESC[95m------------- File changes in '.' will causes :ar to reload. Control-C to interrupt. ------------\ESC[m\n"
-                  lock <- newEmptyMVar
-                  watchTree manager (fromString ".") (const True) (const $ putMVar lock True)
-                  rerun <- readMVar lock
-                  return $ if rerun
-                             then ":reload \n :main \n :run"
-                             else ""
-                  )
-               )
-:}
-
--- Auto Reload
--- \ :ar
-:{
-:def ar const (withManager (\manager -> 
-               do putStrLn "\n \ESC[95m------------- File changes in '.' will causes :main to run. Control-C to interrupt. ------------\ESC[m\n"
-                  lock <- newEmptyMVar
-                  watchTree manager (fromString ".") (const True) (const $ putMVar lock True)
-                  rerun <- readMVar lock
-                  return $ if rerun
-                             then ":reload \n :ar"
-                             else ""
-                  )
-               )
+:def test (\_ -> return ":reload \n :main")
 :}
 
